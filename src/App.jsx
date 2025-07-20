@@ -7,40 +7,44 @@ import AddText from './components/Addtext';
 
 function App() {
   const [text, setText] = useState(''); // Manages the text from the textarea
-  const [audioSrc, setAudioSrc] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [audioSrc, setAudioSrc] = useState(null); //
+  const [isLoading, setIsLoading] = useState(false); //
 
-  // This function triggers the API call with the current text
   const handleGenerateAudio = async () => {
-    if (!text.trim()) return; // Don't run if text is empty
+    if (!text.trim()) return;
 
     setIsLoading(true);
     setAudioSrc(null);
 
-try {
-  const response = await fetch('https://vocalizeit-lc7l.onrender.com/api/tts/synthesize', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text: text }),
-  });
+    try {
+      const response = await fetch('https://vocalizeit-lc7l.onrender.com/api/tts/synthesize', { //
+        method: 'POST', //
+        headers: { 'Content-Type': 'application/json' }, //
+        body: JSON.stringify({ text: text }), //
+      });
 
-  if (!response.ok) throw new Error('Backend server error');
+      if (!response.ok) throw new Error('Backend server error'); //
 
-  const data = await response.json();
+      const data = await response.json(); //
 
-  const byteCharacters = atob(data.audioContent);
-  const byteNumbers = new Array(byteCharacters.length);
-  for (let i = 0; i < byteCharacters.length; i++) {
-    byteNumbers[i] = byteCharacters.charCodeAt(i);
-  }
-  const byteArray = new Uint8Array(byteNumbers);
-  
-  // Do something with byteArray here (e.g. play or download the audio)
-  
-} catch (error) {
-  console.error('Error generating audio:', error);
-}
+      // ** FIX STARTS HERE **
+      const byteCharacters = atob(data.audioContent); //
+      const byteNumbers = new Array(byteCharacters.length); //
+      for (let i = 0; i < byteCharacters.length; i++) { //
+        byteNumbers[i] = byteCharacters.charCodeAt(i); //
+      }
+      const byteArray = new Uint8Array(byteNumbers); //
+      const blob = new Blob([byteArray], { type: 'audio/mpeg' }); //
+      const url = URL.createObjectURL(blob); //
 
+      setAudioSrc(url); // Update the state with the playable URL
+      // ** FIX ENDS HERE **
+
+    } catch (error) {
+      console.error('Error generating audio:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -52,10 +56,8 @@ try {
         {isLoading ? <p>Generating Audio...</p> : <Waveform audioUrl={audioSrc} />}
         <AddText onGenerateClick={handleGenerateAudio} />
 
-        {/* Wrap the textarea in a div with your container class */}
         <div className="texdisplay-wrap">
           <textarea
-            // Apply your text box class here
             className="text-display-box"
             value={text}
             onChange={(e) => setText(e.target.value)}
