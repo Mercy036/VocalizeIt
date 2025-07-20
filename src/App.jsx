@@ -1,4 +1,4 @@
-// App.jsx with Azure TTS features
+// App.jsx - Simplified version without voice settings
 
 import { useState, useEffect } from 'react';
 import './index.css';
@@ -9,27 +9,11 @@ function App() {
   const [text, setText] = useState('');
   const [audioSrc, setAudioSrc] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [voices, setVoices] = useState([]);
-  const [selectedVoice, setSelectedVoice] = useState('en-US-AriaNeural');
-  const [speechRate, setSpeechRate] = useState('0%');
-  const [speechPitch, setSpeechPitch] = useState('0%');
-
-  // Load available voices on component mount
-  useEffect(() => {
-    const loadVoices = async () => {
-      try {
-        const response = await fetch('https://vocalizeit-lc7l.onrender.com/api/tts/voices');
-        if (response.ok) {
-          const data = await response.json();
-          setVoices(data.voices);
-        }
-      } catch (error) {
-        console.error('Error loading voices:', error);
-      }
-    };
-    
-    loadVoices();
-  }, []);
+  
+  // Use default voice settings (no UI controls)
+  const selectedVoice = 'en-US-AriaNeural';
+  const speechRate = '0%';
+  const speechPitch = '0%';
 
   const handleGenerateAudio = async () => {
     if (!text.trim()) return;
@@ -82,61 +66,7 @@ function App() {
         <div className="VocalizeIt-title">VocalizeIt</div>
         <div className="slogan">Create. Manage and Conquer Your Stories</div>
 
-        {/* Voice Controls */}
-        <div style={{ margin: '20px 0', padding: '15px', border: '1px solid #ccc', borderRadius: '8px' }}>
-          <h3>Voice Settings</h3>
-          
-          <div style={{ marginBottom: '10px' }}>
-            <label>Voice: </label>
-            <select 
-              value={selectedVoice} 
-              onChange={(e) => setSelectedVoice(e.target.value)}
-              style={{ marginLeft: '10px', padding: '5px' }}
-            >
-              <option value="en-US-AriaNeural">Aria (Female, US)</option>
-              <option value="en-US-DavisNeural">Davis (Male, US)</option>
-              <option value="en-US-JennyNeural">Jenny (Female, US)</option>
-              <option value="en-US-GuyNeural">Guy (Male, US)</option>
-              <option value="en-GB-SoniaNeural">Sonia (Female, UK)</option>
-              <option value="en-GB-RyanNeural">Ryan (Male, UK)</option>
-              {voices.map(voice => (
-                <option key={voice.name} value={voice.name}>
-                  {voice.displayName} ({voice.gender}, {voice.locale})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div style={{ marginBottom: '10px' }}>
-            <label>Speed: </label>
-            <select 
-              value={speechRate} 
-              onChange={(e) => setSpeechRate(e.target.value)}
-              style={{ marginLeft: '10px', padding: '5px' }}
-            >
-              <option value="-50%">Very Slow</option>
-              <option value="-25%">Slow</option>
-              <option value="0%">Normal</option>
-              <option value="+25%">Fast</option>
-              <option value="+50%">Very Fast</option>
-            </select>
-          </div>
-
-          <div>
-            <label>Pitch: </label>
-            <select 
-              value={speechPitch} 
-              onChange={(e) => setSpeechPitch(e.target.value)}
-              style={{ marginLeft: '10px', padding: '5px' }}
-            >
-              <option value="-20%">Lower</option>
-              <option value="-10%">Slightly Lower</option>
-              <option value="0%">Normal</option>
-              <option value="+10%">Slightly Higher</option>
-              <option value="+20%">Higher</option>
-            </select>
-          </div>
-        </div>
+        {/* Removed Voice Settings Section */}
 
         {isLoading ? <p>Generating Audio...</p> : <Waveform audioUrl={audioSrc} />}
         <AddText onGenerateClick={handleGenerateAudio} />
