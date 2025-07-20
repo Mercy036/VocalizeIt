@@ -26,6 +26,25 @@ app.use((req, res, next) => {
 // Use the TTS routes
 app.use('/api/tts', ttsRoutes);
 
+// Add this temporary debug route
+app.get('/debug-env', (req, res) => {
+  const apiKey = process.env.ELEVENLABS_API_KEY;
+
+  if (apiKey) {
+    res.json({
+      keyExists: true,
+      keyLength: apiKey.length,
+      firstFourChars: apiKey.substring(0, 4),
+      lastFourChars: apiKey.substring(apiKey.length - 4)
+    });
+  } else {
+    res.json({
+      keyExists: false,
+      message: 'The ELEVENLABS_API_KEY environment variable was not found.'
+    });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
