@@ -1,12 +1,17 @@
 const express = require('express');
-const { ElevenLabsClient } = require('elevenlabs'); // Import the new client
 
 const router = express.Router();
 
-// Initialize the ElevenLabs client with your API key
+const { ElevenLabsClient } = require("elevenlabs");
+
 const elevenlabs = new ElevenLabsClient({
-  apiKey: process.env.ELEVENLABS_API_KEY,
+  apiKey: process.env.ELEVENLABS_API_KEY
 });
+
+console.log("API Key loaded:", process.env.ELEVENLABS_API_KEY ? "✅ Yes" : "❌ No");
+
+// Initialize the ElevenLabs client with your API key
+
 
 router.post('/synthesize', async (req, res) => {
   try {

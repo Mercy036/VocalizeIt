@@ -17,33 +17,30 @@ function App() {
     setIsLoading(true);
     setAudioSrc(null);
 
-    try {
-      const response = await fetch('http://localhost:3001/api/tts/synthesize', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: text }),
-      });
+try {
+  const response = await fetch('https://vocalizeit-iz06.onrender.com/api/tts/synthesize', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ text: text }),
+  });
 
-      if (!response.ok) throw new Error('Backend server error');
+  if (!response.ok) throw new Error('Backend server error');
 
-      const data = await response.json();
+  const data = await response.json();
 
-      const byteCharacters = atob(data.audioContent);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: 'audio/mpeg' });
-      const url = URL.createObjectURL(blob);
+  const byteCharacters = atob(data.audioContent);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  
+  // Do something with byteArray here (e.g. play or download the audio)
+  
+} catch (error) {
+  console.error('Error generating audio:', error);
+}
 
-      setAudioSrc(url);
-
-    } catch (error) {
-      console.error('Error fetching audio:', error);
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   return (
