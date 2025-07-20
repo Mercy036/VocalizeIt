@@ -1,7 +1,7 @@
 # 🎙️ VocalizeIt
 
 **Create. Manage. Conquer Your Stories.**  
-VocalizeIt is a powerful and elegant text-to-speech web app that transforms your words into expressive audio using the **ElevenLabs API**. Whether you're writing a story, scripting a video, or just exploring creative narration, VocalizeIt brings your text to life.
+VocalizeIt is a powerful and elegant text-to-speech web app that transforms your words into expressive audio using the **Microsoft Azure TTS API**. Whether you're writing a story, scripting a video, or just exploring creative narration, VocalizeIt brings your text to life.
 
 ---
 
@@ -12,11 +12,12 @@ VocalizeIt is a powerful and elegant text-to-speech web app that transforms your
 
 ## 🚀 Features
 
-- 🎤 **Text to Audio Generation** powered by ElevenLabs
-- 💡 **Intuitive UI** built with modern design principles
-- 🎧 **Audio Player** to preview and playback generated speech
-- 🌈 **Beautiful Gradient Aesthetics** for an immersive experience
+- 🗣️ **Text to Audio Generation** powered by Microsoft Azure TTS
+- 🎧 **Audio Player** to preview and play generated audio
+- 🖌️ **Modern UI/UX** with responsive and intuitive design
+- 🎨 **Gradient-Themed Aesthetics** for a delightful experience
 - ⚙️ **Fully Functional Backend** using Node.js & Express
+- 🧠 Smart and seamless integration with Azure Cognitive Services
 - 📝 Built with love by **Shourya & Ansh**
 
 ---
@@ -26,13 +27,13 @@ VocalizeIt is a powerful and elegant text-to-speech web app that transforms your
 ### Frontend:
 - **React.js**
 - **Vite**
-- **Tailwind CSS** (or other CSS utilities used for styling)
-- **HTML5 + Modern JavaScript**
+- **Tailwind CSS** (or equivalent styling framework)
+- **HTML5 + JavaScript (ES6+)**
 
 ### Backend:
 - **Node.js**
 - **Express.js**
-- **ElevenLabs Text-to-Speech API**
+- **Microsoft Azure Cognitive Services** (Text-to-Speech API)
 
 ---
 
