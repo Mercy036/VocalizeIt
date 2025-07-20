@@ -23,7 +23,7 @@ function TextToSpeech() {
 
     try {
       // This is where your fetch logic goes
-      const response = await fetch('http://localhost:3001/api/tts/synthesize', {
+      const response = await fetch('https://vocalizeit-lc7l.onrender.com/api/tts/synthesize', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

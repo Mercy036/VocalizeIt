@@ -18,7 +18,7 @@ function App() {
     setAudioSrc(null);
 
 try {
-  const response = await fetch('https://vocalizeit-iz06.onrender.com/api/tts/synthesize', {
+  const response = await fetch('https://vocalizeit-lc7l.onrender.com/api/tts/synthesize', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ text: text }),

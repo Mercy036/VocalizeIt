@@ -11,7 +11,7 @@ function StoryCreator() {
     setAudioUrl(null); // Reset previous audio
 
     try {
-      const response = await fetch('/api/synthesize', { // Your backend route
+      const response = await fetch('https://vocalizeit-lc7l.onrender.com/api/synthesize', { // Your backend route
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
